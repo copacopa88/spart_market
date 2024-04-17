@@ -27,3 +27,14 @@ def create(request):
     
     context= {'form':form}
     return render(request, 'create.html', context)
+
+def product_detail(request,pk):
+    product=get_object_or_404(Product, id=pk)
+    comment_form=CommentForm()
+    comments = product.comments.all().order_by('-pk')
+    context = {
+        'product':product,
+        'comment_form':comment_form,
+        'comments' : comments,
+    }
+    return render(request, 'product_detail.html', context)

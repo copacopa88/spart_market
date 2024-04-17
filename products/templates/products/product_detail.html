@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>글 상세 페이지</h2>
+  <p>제목: {{ product.title }}</p>
+  <p>작성자: {{product.author.username}}</p>
+
+  {% if product.image %}
+    <img src="{{ product.image.url }}" alt="{{ product.image }}">
+  {% endif %}
+
+  <p>내용: {{ product.content }}</p>
+  <p>작성일시: {{ product.created_at }}</p>
+  <p>수정일시: {{ product.updated_at }}</p>
+
+  <a href="{% url 'products:index' %}">목록 보기</a>
+
+  {% if user == product.author %} 
+  <br>
+  <a href="{% url 'product_update' product.pk %}">
+    <button>수정하기</button>
+  </a>
+  <form action="{% url 'product_delete' product.pk %}" method="post">
+    {% csrf_token %}
+    <input type="submit" value="삭제">
+  </form>
+  {% endif %} 
+  
+  <br>
+  <h2>댓글 {{ comments|length }} 개</h2>
+  <br>
+  {% for comment in comments  %}
+  <ul>
+    <li>
+      {{ comment.content }} | {{ comment.created_at }}
+      <p>작성자: {{ comment.user.username }}</p>
+
+      {% if user == comment.user %} 
+      {% comment %} 로그인한 사람과 글 쓴 사람이 같을시만 삭제버튼 보이게 {% endcomment %}
+      <form action="{% url 'comment_delete' article.pk comment.pk %}" method="POST">
+        {% csrf_token %}
+        <input type="submit" value="댓글삭제">
+      </form>
+      {% endif %} 
+    </li>
+  </ul>
+
+  {% empty %}
+    <p>댓글이 없습니다.</p>
+
+  {% endfor %}
+  
+  <br>
+  <hr>
+<h3>댓글</h3>
+  {% if request.user.is_authenticated %}
+  <form action="{% url "comment_create" article.pk %}" method="POST">
+      {% csrf_token %}
+      {{ comment_form.as_p }}
+      <input type="submit" value="댓글작성">
+  </form>
+  {% endif %}
+  
+
+{% endblock %}
