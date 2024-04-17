@@ -3,5 +3,22 @@
 {% block content %}
 
 <h1>안녕하세요!</h1>
+    {% for product in products %}
 
+    <div>
+        <a href="{% url 'products:product_detail' products.pk %}"> {{product.id}}.{{product.title}}</a>
+    </div>
+
+
+    {% endfor %}
+    
+    {% if request.user.is_authenticated %}
+
+        <a href="{% url 'products:product_creats' %}">
+            <button>새로운 글 작성</button></a>
+    
+    {% else  %}
+        <a href="{% url 'accounts:login' %}">로그인하고 글 작성하기</a>
+    
+    {% endif %}
 {% endblock content %}

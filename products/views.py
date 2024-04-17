@@ -14,19 +14,20 @@ def index(request):
 
 
 
-def create(request):
+def product_creats(request):
     if request.method == 'POST':
         form = ProductForm(request.POST, request.FILES)
         if form.is_valid(): 
             product=form.save(commit=False)
             product.author = request.user
             product.save()
-            return redirect('product_detail', product.pk)
+            return redirect('products:product_detail', product.pk)
     else:
         form = ProductForm()
     
     context= {'form':form}
-    return render(request, 'create.html', context)
+    return render(request, 'products/product_creats.html', context)
+
 
 def product_detail(request,pk):
     product=get_object_or_404(Product, id=pk)
@@ -37,4 +38,4 @@ def product_detail(request,pk):
         'comment_form':comment_form,
         'comments' : comments,
     }
-    return render(request, 'product_detail.html', context)
+    return render(request, 'products/product_detail.html', context)

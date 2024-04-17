@@ -1,9 +1,12 @@
 {% extends 'base.html' %}
 
 {% block content %}
+
+
   <h2>글 상세 페이지</h2>
-  <p>제목: {{ product.title }}</p>
+  <h1>제목: {{ product.title }}</h1>
   <p>작성자: {{product.author.username}}</p>
+  <p>가격: {{product.price}}</p>
 
   {% if product.image %}
     <img src="{{ product.image.url }}" alt="{{ product.image }}">

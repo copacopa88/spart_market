@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>글 쓰기</h1><br>
+
+    <form action='{% url 'products:product_creats' %}' method='POST' enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <p><button type="submit">저장</button></p>
+    </form>
+
+    <a href="{% url 'articles' %}">목록으로 돌아가기</a>
+
+{% endblock content %}
