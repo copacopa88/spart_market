@@ -14,7 +14,7 @@ def login(request):
         form=AuthenticationForm(data=request.POST)
         if form.is_valid():
             auth_login(request, form.get_user())
-            next_url = request.GET.get('next') or 'index'
+            next_url = request.GET.get('next') or 'products:index'
             return redirect(next_url)
         
     else:
@@ -28,7 +28,7 @@ def login(request):
 def logout(request):
     if request.user.is_authenticated:
         auth_logout(request)
-    return redirect('index')
+    return redirect('products:index')
 
 @require_http_methods(['GET', 'POST'])
 def signup(request):
@@ -48,7 +48,7 @@ def delete(request):
     if request.user.is_authenticated:
         request.user.delete()
         auth_logout(request)
-    return redirect("index")
+    return redirect("products:index")
 
 
 @require_http_methods(['GET', 'POST'])
@@ -57,7 +57,7 @@ def update(request):
         form = CustomUserChangeForm(request.POST, instance=request.user)
         if form.is_valid():
             form.save()
-            return redirect("index")
+            return redirect("products:index")
     else:
         form = CustomUserChangeForm(instance=request.user)
     context = {'form':form}
@@ -71,7 +71,7 @@ def change_password(request):
         if form.is_valid():
             form.save()
             update_session_auth_hash(request, form.user)
-            return redirect("index")
+            return redirect("products:index")
     else:
         form = PasswordChangeForm(request.user)
     context = {"form": form}
