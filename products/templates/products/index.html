@@ -4,11 +4,9 @@
 
 <h1>안녕하세요!</h1>
     {% for product in products %}
-
     <div>
-        <a href="{% url 'products:product_detail' products.pk %}"> {{product.id}}.{{product.title}}</a>
+        <a href="{% url 'products:product_detail' product.pk %}"> {{product.id}}.{{product.title}}</a>
     </div>
-
 
     {% endfor %}
     
@@ -21,5 +19,5 @@
         <a href="{% url 'accounts:login' %}">로그인하고 글 작성하기</a>
     
     {% endif %}
-    
+
 {% endblock content %}

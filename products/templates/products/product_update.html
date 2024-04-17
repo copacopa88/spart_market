@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Edit product</h1><br>
+
+    <form action='{% url 'product_update' product.pk %}' method='POST'>
+        {% csrf_token %}
+        {{ form.as_p}}
+
+        <p><button type="submit">수정</button></p>
+    </form>
+
+    <a href="{% url 'product_detail' product.pk %}">이전으로</a>
+
+{% endblock content %}

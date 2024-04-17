@@ -4,6 +4,7 @@
 
 
   <h2>글 상세 페이지</h2>
+  <a href="{% url 'products:index' %}">목록으로 돌아가기</a>
   <h1>제목: {{ product.title }}</h1>
   <p>작성자: {{product.author.username}}</p>
   <p>가격: {{product.price}}</p>
@@ -20,10 +21,10 @@
 
   {% if user == product.author %} 
   <br>
-  <a href="{% url 'product_update' product.pk %}">
+  <a href="{% url 'products:product_update' product.pk %}">
     <button>수정하기</button>
   </a>
-  <form action="{% url 'product_delete' product.pk %}" method="post">
+  <form action="{% url 'products:product_delete' product.pk %}" method="post">
     {% csrf_token %}
     <input type="submit" value="삭제">
   </form>
@@ -40,7 +41,7 @@
 
       {% if user == comment.user %} 
       {% comment %} 로그인한 사람과 글 쓴 사람이 같을시만 삭제버튼 보이게 {% endcomment %}
-      <form action="{% url 'comment_delete' article.pk comment.pk %}" method="POST">
+      <form action="{% url 'comment_delete' product.pk comment.pk %}" method="POST">
         {% csrf_token %}
         <input type="submit" value="댓글삭제">
       </form>
@@ -57,7 +58,7 @@
   <hr>
 <h3>댓글</h3>
   {% if request.user.is_authenticated %}
-  <form action="{% url "comment_create" article.pk %}" method="POST">
+  <form action="{% url "products:comment_create" product.pk %}" method="POST">
       {% csrf_token %}
       {{ comment_form.as_p }}
       <input type="submit" value="댓글작성">
