@@ -23,7 +23,7 @@ class Product(models.Model):
 
 
 class Comment(models.Model):
-    Product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="comments")
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="comments")
     
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="comments"

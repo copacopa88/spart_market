@@ -33,6 +33,8 @@
   <br>
   <h2>댓글 {{ comments|length }} 개</h2>
   <br>
+  <h2>좋아요 {{ product.like_users.all|length }} 개</h2>
+  <br>
   {% for comment in comments  %}
   <ul>
     <li>
@@ -41,7 +43,7 @@
 
       {% if user == comment.user %} 
       {% comment %} 로그인한 사람과 글 쓴 사람이 같을시만 삭제버튼 보이게 {% endcomment %}
-      <form action="{% url 'comment_delete' product.pk comment.pk %}" method="POST">
+      <form action="{% url 'products:comment_delete' product.pk comment.pk %}" method="POST">
         {% csrf_token %}
         <input type="submit" value="댓글삭제">
       </form>
@@ -53,6 +55,7 @@
     <p>댓글이 없습니다.</p>
 
   {% endfor %}
+
   
   <br>
   <hr>
