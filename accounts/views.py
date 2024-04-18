@@ -80,5 +80,5 @@ def change_password(request):
     return render(request, "accounts/change_password.html", context)
 
 def profile(request, user_id):
-     user= get_object_or_404(User, id =user_id)
+     user= get_object_or_404(User, id=user_id)
      return render(request, 'accounts/profile.html', {'profile_user':user})

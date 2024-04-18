@@ -2,9 +2,19 @@
 
 {% block content %}
 
-<h1>{{ profile_user.user.username }}님의 프로필 페이지</h1>
+<h1>{{ profile_user.username }}님의 프로필 페이지</h1>
 
 
+    {% for product in user.like_products.all %}
+    <div>
+        <h2>{{ product.title }}</h2>
+        <p>{{ product.content }}</p>
+        <p>Price: {{ product.price }}</p>
+    </div>
+
+    {% endfor %}
+
+    <a href="{% url 'products:index' %}">메인으로 돌아가기</a>
 
 
 {% endblock content %}
