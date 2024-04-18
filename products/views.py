@@ -68,9 +68,9 @@ def product_update(request, pk):
 
     context = {
         "form": form,
-        "article": product,
+        "product": product,
     }
-    return render(request, "product_update.html", context)
+    return render(request, "products/product_update.html", context)
 
 @require_POST
 def comment_create(request, pk):
