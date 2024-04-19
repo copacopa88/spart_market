@@ -7,6 +7,10 @@
   <a href="{% url 'products:index' %}">목록으로 돌아가기</a>
   <h1>제목: {{ product.title }}</h1>
   <p>작성자: {{product.author.username}}</p>
+  <form action="{% url "users:follow" member.pk %}" method="POST">
+    {% csrf_token %}
+        <button type="submit">팔로우</button>
+  </form>
   <p>가격: {{product.price}}</p>
 
   {% if product.image %}
