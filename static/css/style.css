@@ -4,13 +4,6 @@ margin-left: 20px;
 
 }
 
-.container {
-  margin: 25px;
-  width: 350px;
-  height: 200px;
-  display: flex;
-  justify-content: center;
-}
 
 .card {
   margin-top: 25px;
@@ -19,5 +12,23 @@ margin-left: 20px;
 
 .card-like {
 
-  margin-left: 0px;
+  margin-left: 30px;
+}
+
+.card-img-top {
+  margin-top: 25px;
+  width: 250px;
+  height: 250px;
+
+  object-fit: contain;
+}
+
+.col {
+  flex: 0 0 20rem;
+  max-width: 20rem;
+}
+
+.card-bottom {
+  display: flex;
+  align-items: center;
 }

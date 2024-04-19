@@ -3,9 +3,10 @@ from .models import Product, Comment
 from .forms import ProductForm, CommentForm
 from django.views.decorators.http import require_POST, require_http_methods
 from django.contrib.auth.decorators import login_required
+from django.db.models import Count
 
 def index(request):
-     products= Product.objects.all().order_by('-id')
+     products = Product.objects.annotate(comment_count=Count('comments')).order_by('-id')
      context = {
          'products': products,
          }

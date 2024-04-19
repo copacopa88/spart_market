@@ -10,7 +10,7 @@
   <p>가격: {{product.price}}</p>
 
   {% if product.image %}
-    <img src="{{ product.image.url }}" alt="{{ product.image }}">
+    <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.image }}">
   {% endif %}
 
   <p>내용: {{ product.content }}</p>

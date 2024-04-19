@@ -3,16 +3,65 @@
 {% block content %}
 
 <h1>{{ profile_user.username }}님의 프로필 페이지</h1>
+<br>
+
+<h3>가입일: {{profile_user.date_joined}}</h3>
+<h3>좋아요를 누른 게시글 목록</h3>
+
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    
 
 
     {% for product in user.like_products.all %}
-    <div>
-        <h2>{{ product.title }}</h2>
-        <p>{{ product.content }}</p>
-        <p>Price: {{ product.price }}</p>
+    
+    <div class="col">
+    <div class="card" style="width: 20rem;">
+        {% if product.image %}
+        <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.image }}">
+        {% endif %}
+        <div class="card-body">
+          <a href="{% url 'products:product_detail' product.pk %}" class="card-title"><h4>{{ product.title }}</h4></a>
+          <p class="card-text">{{ product.content }}</p>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">작성자: {{product.author.username}}</li>
+          <li class="list-group-item">가격: {{product.price}}원</li>
+        </ul>
+        <div class="card-bottom">
+    
+            <div class='card-like'>
+                <form action="{% url 'products:like' product.pk %}" method="POST">
+                    {% csrf_token %}
+                {% if request.user in product.like_users.all %}
+                        <button class="btn btn-link text-danger">
+                            <i class="bi bi-heart-fill"></i>
+                        </button>
+                        
+                    
+                {% else %}
+                    <button class="btn btn-link text-danger" >
+                        <i class="bi bi-heart"></i>
+                    </button>
+                {% endif %}
+        
+                {{ product.like_users.all|length }}
+                </form>
+            </div>
+    
+            <div class='card-like'>
+                조회수: {{ product.hits }}
+            </div>
+            
+            <div class='card-like'>
+                댓글수: {{ product.comment_count }}
+            </div>
+        </div>
+      </div>
     </div>
-
-    {% endfor %}
+      {% endfor %}
+        
+      </div>
+    <br>
 
     <a href="{% url 'products:index' %}">메인으로 돌아가기</a>
 
