@@ -45,7 +45,7 @@ def product_detail(request,pk):
     comment_form=CommentForm()
     comments = product.comments.all().order_by('-pk')
     default_hits = product.hits
-    product.hit = default_hits+1
+    product.hits = default_hits+1
     product.save()
     context = {
         'product':product,

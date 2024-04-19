@@ -17,7 +17,7 @@ class Product(models.Model):
         settings.AUTH_USER_MODEL, related_name="like_products"
     )
     
-    hits = models.PositiveIntegerField(default = 0)
+    hits = models.IntegerField(default = 0)
     
     
     def __str__(self):
