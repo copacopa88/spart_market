@@ -102,3 +102,8 @@ def like(request, pk):
             product.like_users.add(request.user)
         return redirect('products:index')
     return redirect('accounts:login')
+
+@property
+def click(self):
+    self.hits +=1
+    self.save()

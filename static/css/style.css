@@ -1,0 +1,23 @@
+.navbar-brand {
+
+margin-left: 20px;
+
+}
+
+.container {
+  margin: 25px;
+  width: 350px;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+}
+
+.card {
+  margin-top: 25px;
+
+}
+
+.card-like {
+
+  margin-left: 0px;
+}

@@ -3,6 +3,51 @@
 {% block content %}
 
 <h1>안녕하세요!</h1>
+{% for product in products %}
+
+<div class="card" style="width: 20rem;">
+    {% if product.image %}
+    <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.image }}">
+    {% endif %}
+    <div class="card-body">
+      <a href="{% url 'products:product_detail' product.pk %}" class="card-title"><h4>{{ product.title }}</h4></a>
+      <p class="card-text">{{ product.content }}</p>
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">작성자: {{product.author.username}}</li>
+      <li class="list-group-item">가격: {{product.price}}원</li>
+      <li class="list-group-item">조회수:</li>
+    </ul>
+    <div class="card-body">
+
+        <div class='card-like'>
+            <form action="{% url 'products:like' product.pk %}" method="POST">
+                {% csrf_token %}
+            {% if request.user in product.like_users.all %}
+                    <button class="btn btn-link text-danger">
+                        <i class="bi bi-heart-fill"></i>
+                    </button>
+                    
+                
+            {% else %}
+                <button class="btn btn-link text-danger" >
+                    <i class="bi bi-heart"></i>
+                </button>
+            {% endif %}
+    
+            {{ product.like_users.all|length }}
+            </form>
+        </div>
+
+        <div class='card-like'>
+            조회수:{{ product.hits }}
+        </div>
+        
+    </div>
+  </div>
+  {% endfor %}
+
+        
     {% for product in products %}
     <div>
         <a href="{% url 'products:product_detail' product.pk %}"> {{product.id}}.{{product.title}}</a>
@@ -11,13 +56,13 @@
             {% csrf_token %}
             {% if request.user in product.like_users.all %}
                 <button class="btn btn-link text-danger">
-                    <i class="fa-solid fa-heart"></i>
+                    <i class="bi bi-heart-fill"></i>
                 </button>
                 
                 
             {% else %}
                 <button class="btn btn-link text-danger" >
-                    <i class="fa-regular fa-heart"></i>
+                    <i class="bi bi-heart"></i>
                 </button>
 
                 
