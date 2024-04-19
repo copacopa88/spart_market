@@ -44,11 +44,14 @@ def product_detail(request,pk):
     product=get_object_or_404(Product, id=pk)
     comment_form=CommentForm()
     comments = product.comments.all().order_by('-pk')
+    default_hits = product.hits
+    product.hit = default_hits+1
+    product.save()
     context = {
         'product':product,
         'comment_form':comment_form,
         'comments' : comments,
-    }
+    }   
     return render(request, 'products/product_detail.html', context)
 
 @login_required
@@ -103,7 +106,3 @@ def like(request, pk):
         return redirect('products:index')
     return redirect('accounts:login')
 
-@property
-def click(self):
-    self.hits +=1
-    self.save()
