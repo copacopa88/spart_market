@@ -9,7 +9,7 @@ def profile(request, username):
     context = {
         'member':member,
     }
-    return render(request, 'profile.html', context)
+    return render(request, 'users/profile.html', context)
 
 @require_POST
 def follow(request, user_id):
@@ -22,7 +22,7 @@ def follow(request, user_id):
                     member.followers.remove(request.user)
             else:
                 member.followers.add(request.user)
-        return redirect(profile, username=member.username)
+        return redirect('users:profile', username=member.username)
             
     else:
         return redirect('accounts:login')
